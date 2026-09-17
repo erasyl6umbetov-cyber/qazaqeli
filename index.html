@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Қазақстан әлемі | Qazaqstan World</title>
+<style>
+:root{
+  --bg:#03101f;--panel:rgba(9,28,50,.72);--panel2:rgba(13,42,70,.75);
+  --cyan:#55d7ff;--gold:#f4c95d;--text:#f5f9ff;--muted:#a8bad0;
+  --line:rgba(255,255,255,.11);--shadow:0 30px 90px rgba(0,0,0,.42);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  color:var(--text);background:
+  radial-gradient(circle at 15% 15%,rgba(30,154,210,.18),transparent 28%),
+  radial-gradient(circle at 85% 35%,rgba(244,201,93,.10),transparent 24%),
+  linear-gradient(135deg,#020a15,#061a30 55%,#03101f);
+  min-height:100vh;overflow-x:hidden;
+}
+body:before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;
+  background-image:radial-gradient(rgba(255,255,255,.65) 1px,transparent 1px);
+  background-size:90px 90px;opacity:.10;
+}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+.container{width:min(1180px,92%);margin:auto}
+nav{
+  position:fixed;top:0;left:0;right:0;height:76px;z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 4%;background:rgba(2,10,21,.65);backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--line)
+}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900;letter-spacing:2px}
+.brand-mark{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;
+  background:linear-gradient(145deg,#49cbed,#0c6289);box-shadow:0 0 30px rgba(85,215,255,.2)}
+.navlinks{display:flex;gap:24px;align-items:center}
+.navlinks a{font-size:14px;color:#dce8f5;opacity:.82;transition:.25s}
+.navlinks a:hover{color:var(--cyan);opacity:1}
+.langs{display:flex;gap:5px;margin-left:18px}
+.langs button{
+  border:1px solid var(--line);background:rgba(255,255,255,.04);color:#dce8f5;
+  border-radius:9px;padding:7px 9px;cursor:pointer;font-size:11px
+}
+.langs button.active{background:var(--gold);color:#171006;border-color:var(--gold);font-weight:800}
+.menu{display:none;border:0;background:none;color:white;font-size:25px;cursor:pointer}
+.hero{min-height:100vh;display:grid;place-items:center;text-align:center;padding:120px 20px 70px;position:relative}
+.hero-inner{max-width:950px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:9px 15px;border:1px solid rgba(85,215,255,.25);
+  border-radius:999px;background:rgba(85,215,255,.06);color:#9be6ff;font-size:12px;letter-spacing:2px}
+.hero h1{font-size:clamp(58px,11vw,132px);line-height:.88;margin:28px 0 25px;letter-spacing:-6px;
+  background:linear-gradient(110deg,#fff,#72ddff,#f4c95d);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{max-width:700px;margin:auto;color:var(--muted);font-size:18px;line-height:1.8}
+.cta{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:32px}
+.btn{padding:14px 20px;border-radius:14px;border:1px solid var(--line);cursor:pointer;transition:.3s;font-weight:800}
+.btn.primary{background:linear-gradient(135deg,#56d8ff,#2299c7);color:#02101b;border:none}
+.btn.secondary{background:rgba(255,255,255,.05)}
+.btn:hover{transform:translateY(-4px)}
+section{padding:95px 0}
+.section-head{text-align:center;margin-bottom:48px}
+.kicker{color:var(--gold);font-size:12px;letter-spacing:3px;font-weight:800}
+.section-head h2{font-size:clamp(34px,5vw,56px);margin:10px 0 12px}
+.section-head p{max-width:680px;margin:auto;color:var(--muted);line-height:1.7}
+.card{
+  background:linear-gradient(145deg,rgba(18,50,79,.76),rgba(4,19,35,.72));
+  border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);
+  backdrop-filter:blur(16px)
+}
+.symbols{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:stretch}
+.symbol-card{padding:24px;min-height:430px;display:flex;flex-direction:column}
+.symbol-card h3{font-size:24px;margin:18px 0 10px}
+.symbol-card p{color:var(--muted);line-height:1.7}
+.symbol-img{
+  width:100%;height:260px;object-fit:contain;border-radius:18px;background:#d9d9d9;
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)
+}
+.emblem-img{object-fit:cover}
+.map-card{padding:18px}
+.map{
+  height:570px;position:relative;overflow:hidden;border-radius:20px;
+  background:
+    radial-gradient(circle at 50% 50%,rgba(65,191,231,.16),transparent 38%),
+    linear-gradient(145deg,#071d33,#061321);
+  border:1px solid rgba(85,215,255,.16);
+}
+.map:before{
+  content:"";position:absolute;inset:0;opacity:.22;
+  background-image:linear-gradient(rgba(85,215,255,.08) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(85,215,255,.08) 1px,transparent 1px);
+  background-size:45px 45px;transform:perspective(500px) rotateX(55deg) scale(1.4);transform-origin:center bottom;
+}
+.kz-shape{
+  position:absolute;left:50%;top:50%;width:min(800px,78%);height:330px;transform:translate(-50%,-50%);
+  background:linear-gradient(135deg,#0a5275,#18a9d4 50%,#07506e);
+  clip-path:polygon(0 42%,7% 25%,17% 27%,24% 12%,35% 17%,45% 6%,58% 14%,69% 8%,82% 20%,94% 27%,100% 45%,94% 55%,98% 70%,87% 73%,80% 90%,68% 81%,57% 95%,45% 78%,34% 85%,23% 76%,12% 82%,7% 63%,0 60%);
+  filter:drop-shadow(0 30px 25px rgba(0,0,0,.45));box-shadow:inset 0 0 60px rgba(255,255,255,.08)
+}
+.kz-shape:after{content:"QAZAQSTAN";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  font-weight:1000;font-size:clamp(24px,4vw,50px);letter-spacing:5px;color:rgba(255,255,255,.16)}
+.map-note{position:absolute;left:18px;bottom:15px;color:#89a7bd;font-size:12px;z-index:3}
+.marker{
+  position:absolute;z-index:5;transform:translate(-50%,-50%);cursor:pointer;text-align:center;
+}
+.dot{width:15px;height:15px;border-radius:50%;background:#fff;border:3px solid var(--gold);
+  box-shadow:0 0 0 7px rgba(244,201,93,.13),0 0 26px rgba(244,201,93,.9);transition:.25s}
+.marker:hover .dot{transform:scale(1.45)}
+.marker span{display:block;margin-top:9px;background:rgba(1,11,22,.78);border:1px solid rgba(255,255,255,.1);
+  padding:5px 8px;border-radius:8px;font-size:11px;white-space:nowrap}
+.m-astana{left:55%;top:31%}.m-almaty{left:67%;top:70%}.m-shymkent{left:54%;top:76%}
+.m-turkistan{left:49%;top:69%}.m-aktau{left:18%;top:70%}.m-aktobe{left:27%;top:42%}
+.m-karaganda{left:55%;top:48%}.m-semey{left:72%;top:33%}.m-oskemen{left:80%;top:38%}
+.m-pavlodar{left:68%;top:26%}.m-kostanay{left:41%;top:24%}.m-taraz{left:53%;top:70%}
+.info{display:none;margin-top:18px;padding:26px}.info.show{display:block;animation:up .35s ease}
+.info h3{font-size:30px;color:var(--gold);margin-bottom:10px}.info p{color:var(--muted);line-height:1.75}
+@keyframes up{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:none}}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.place{padding:25px;min-height:200px;transition:.3s;cursor:pointer}
+.place:hover{transform:translateY(-8px);border-color:rgba(85,215,255,.3)}
+.icon{font-size:42px;margin-bottom:15px}.place h3{font-size:21px;margin-bottom:8px}.place p{color:var(--muted);line-height:1.65;font-size:14px}
+.regions{display:flex;flex-wrap:wrap;justify-content:center;gap:9px}
+.region{padding:12px 15px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.035);color:#d8e5f2}
+.anthem{padding:30px;max-width:850px;margin:auto}
+.anthem-title{text-align:center;color:var(--gold);font-size:25px;font-weight:900;margin-bottom:22px}
+.lyrics{white-space:pre-line;text-align:center;color:#e8f1fa;line-height:1.9;font-size:16px}
+.lyrics .chorus{color:#78ddff;font-weight:800}
+.lyrics-controls{text-align:center;margin-top:25px;color:#849bb2;font-size:12px}
+.faq-btn{
+  position:fixed;right:24px;bottom:24px;width:62px;height:62px;border-radius:50%;border:none;
+  background:linear-gradient(135deg,#57d9ff,#1689b6);cursor:pointer;font-size:26px;z-index:1100;
+  box-shadow:0 14px 45px rgba(20,150,210,.4)
+}
+.faq-panel{
+  position:fixed;right:24px;bottom:98px;width:min(400px,calc(100% - 30px));z-index:1099;
+  padding:20px;background:rgba(4,18,33,.95);border:1px solid var(--line);border-radius:22px;
+  box-shadow:var(--shadow);backdrop-filter:blur(20px);display:none
+}
+.faq-panel.show{display:block;animation:up .25s ease}.faq-panel h3{margin-bottom:12px}
+.faq-item{border-top:1px solid var(--line)}.faq-q{padding:15px 3px;cursor:pointer;font-weight:700;font-size:14px}
+.faq-a{max-height:0;overflow:hidden;color:var(--muted);line-height:1.6;font-size:13px;transition:.3s}
+.faq-item.open .faq-a{max-height:180px;padding:0 3px 15px}
+.anthem-player{margin-top:28px;padding:20px;border-radius:18px;background:rgba(255,255,255,.045);border:1px solid rgba(244,201,93,.25);text-align:center}.anthem-player audio{width:100%;margin-top:12px}.player-label{color:var(--gold);font-weight:800}footer{border-top:1px solid var(--line);padding:50px 0;text-align:center;color:#8197ae}
+footer strong{color:var(--gold)}
+.modal{
+  position:fixed;inset:0;background:rgba(0,0,0,.72);display:none;align-items:center;justify-content:center;
+  z-index:2000;padding:20px;backdrop-filter:blur(7px)
+}
+.modal.show{display:flex}.modal-box{width:min(700px,100%);padding:30px;position:relative}
+.close{position:absolute;right:18px;top:15px;border:0;background:none;color:white;font-size:28px;cursor:pointer}
+.modal-box h3{font-size:34px;color:var(--gold);margin-bottom:12px}.modal-box p{color:var(--muted);line-height:1.8}
+@media(max-width:850px){
+  .navlinks{display:none}.menu{display:block}.navlinks.mobile{position:absolute;top:76px;left:0;right:0;padding:18px 4%;
+    display:flex;flex-direction:column;align-items:flex-start;background:rgba(2,10,21,.96);border-bottom:1px solid var(--line)}
+  .symbols,.grid{grid-template-columns:1fr}.map{height:480px}.kz-shape{width:88%;height:260px}
+}
+@media(max-width:560px){
+  nav{height:68px}.langs{margin-left:4px}.langs button{padding:6px 7px}
+  .hero h1{font-size:62px;letter-spacing:-3px}.hero p{font-size:15px}
+  section{padding:75px 0}.map{height:430px}.map-note{font-size:10px}
+  .marker span{font-size:9px}.dot{width:12px;height:12px}.symbol-img{height:210px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="brand" href="#home"><span class="brand-mark">🇰🇿</span><span>QAZAQSTAN</span></a>
+  <div class="navlinks" id="navlinks">
+    <a href="#symbols" data-i18n="navSymbols">Рәміздер</a>
+    <a href="#map" data-i18n="navMap">Карта</a>
+    <a href="#cities" data-i18n="navCities">Қалалар</a>
+    <a href="#nature" data-i18n="navNature">Табиғат</a>
+    <a href="#anthem" data-i18n="navAnthem">Гимн</a>
+  </div>
+  <div class="langs">
+    <button class="active" data-lang="kk">KZ</button>
+    <button data-lang="ru">RU</button>
+    <button data-lang="en">EN</button>
+  </div>
+  <button class="menu" onclick="document.getElementById('navlinks').classList.toggle('mobile')">☰</button>
+</nav>
+
+<header class="hero" id="home">
+  <div class="hero-inner">
+    <div class="eyebrow">🇰🇿 <span data-i18n="eyebrow">ҰЛЫ ДАЛА ЕЛІ</span></div>
+    <h1 data-i18n="heroTitle">ҚАЗАҚСТАН</h1>
+    <p data-i18n="heroText">Қазақстанның қалаларын, аймақтарын, табиғатын, тарихи орындарын және мемлекеттік рәміздерін интерактивті түрде зертте.</p>
+    <div class="cta">
+      <a class="btn primary" href="#map" data-i18n="explore">🗺️ Картаны зерттеу</a>
+      <a class="btn secondary" href="#symbols" data-i18n="symbolsBtn">🇰🇿 Рәміздерді көру</a>
+    </div>
+  </div>
+</header>
+
+<section id="symbols">
+  <div class="container">
+    <div class="section-head">
+      <div class="kicker" data-i18n="symbolsKicker">NATIONAL SYMBOLS</div>
+      <h2 data-i18n="symbolsTitle">Мемлекеттік рәміздер</h2>
+      <p data-i18n="symbolsText">Қазақстан Республикасының мемлекеттік Туы мен Елтаңбасын көріп, олардың мағынасымен таныс.</p>
+    </div>
+    <div class="symbols">
+      <article class="card symbol-card">
+        <img src="flag.jpeg" class="symbol-img" alt="Қазақстан Республикасының Мемлекеттік Туы">
+        <h3 data-i18n="flagTitle">Мемлекеттік Ту</h3>
+        <p data-i18n="flagText">Көгілдір ту — бейбітшілік, ашық аспан және ел бірлігін бейнелейтін Қазақстанның мемлекеттік рәмізі.</p>
+      </article>
+      <article class="card symbol-card">
+        <img src="emblem.jpeg" class="symbol-img emblem-img" alt="Қазақстан Республикасының Мемлекеттік Елтаңбасы">
+        <h3 data-i18n="emblemTitle">Мемлекеттік Елтаңба</h3>
+        <p data-i18n="emblemText">Елтаңбада шаңырақ, қанатты тұлпарлар, жұлдыз және басқа да ұлттық нышандар бейнеленген.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="map">
+  <div class="container">
+    <div class="section-head">
+      <div class="kicker">INTERACTIVE MAP</div>
+      <h2 data-i18n="mapTitle">Қазақстан картасы</h2>
+      <p data-i18n="mapText">Картадағы қала нүктесін басып, қысқаша ақпаратты аш.</p>
+    </div>
+    <div class="card map-card">
+      <div class="map" id="mapBox">
+        <div class="kz-shape"></div>
+
+        <div class="marker m-astana" onclick="cityInfo('Астана','Қазақстан Республикасының елордасы.')"><div class="dot"></div><span>Астана</span></div>
+        <div class="marker m-almaty" onclick="cityInfo('Алматы','Қазақстанның ірі қалаларының бірі. Таулы табиғатымен және мәдени өмірімен танымал.')"><div class="dot"></div><span>Алматы</span></div>
+        <div class="marker m-shymkent" onclick="cityInfo('Шымкент','Қазақстанның республикалық маңызы бар қалаларының бірі.')"><div class="dot"></div><span>Шымкент</span></div>
+        <div class="marker m-turkistan" onclick="cityInfo('Түркістан','Тарихи және рухани мұрасымен танымал қала.')"><div class="dot"></div><span>Түркістан</span></div>
+        <div class="marker m-aktau" onclick="cityInfo('Ақтау','Каспий теңізінің жағалауында орналасқан қала.')"><div class="dot"></div><span>Ақтау</span></div>
+        <div class="marker m-aktobe" onclick="cityInfo('Ақтөбе','Қазақстанның батыс бөлігіндегі ірі қалалардың бірі.')"><div class="dot"></div><span>Ақтөбе</span></div>
+        <div class="marker m-karaganda" onclick="cityInfo('Қарағанды','Орталық Қазақстандағы ірі қала.')"><div class="dot"></div><span>Қарағанды</span></div>
+        <div class="marker m-semey" onclick="cityInfo('Семей','Тарихи және мәдени маңызы бар қала.')"><div class="dot"></div><span>Семей</span></div>
+        <div class="marker m-oskemen" onclick="cityInfo('Өскемен','Шығыс Қазақстандағы қала, таулы өңірлерге жақын орналасқан.')"><div class="dot"></div><span>Өскемен</span></div>
+        <div class="marker m-pavlodar" onclick="cityInfo('Павлодар','Қазақстанның солтүстік-шығысындағы қала.')"><div class="dot"></div><span>Павлодар</span></div>
+        <div class="marker m-kostanay" onclick="cityInfo('Қостанай','Қазақстанның солтүстігіндегі қала.')"><div class="dot"></div><span>Қостанай</span></div>
+        <div class="marker m-taraz" onclick="cityInfo('Тараз','Қазақстанның көне қалаларының бірі.')"><div class="dot"></div><span>Тараз</span></div>
+
+        <div class="map-note" data-i18n="mapNote">Интерактивті визуал карта • Қаланы басып көр</div>
+      </div>
+      <div class="card info" id="cityInfo"></div>
+    </div>
+  </div>
+</section>
+
+<section id="cities">
+  <div class="container">
+    <div class="section-head">
+      <div class="kicker">CITIES</div>
+      <h2 data-i18n="citiesTitle">Қазақстан қалалары</h2>
+      <p data-i18n="citiesText">Әр қала — Қазақстан тарихы мен мәдениетінің ерекше бөлігі.</p>
+    </div>
+    <div class="grid">
+      <article class="card place" onclick="openModal('Астана','Қазақстан Республикасының елордасы. Заманауи архитектурасы мен мәдени нысандарымен ерекшеленеді.')"><div class="icon">🏙️</div><h3>Астана</h3><p data-i18n="astanaCard">Елорда және заманауи Қазақстанның маңызды орталығы.</p></article>
+      <article class="card place" onclick="openModal('Алматы','Қазақстанның ірі қалаларының бірі. Іле Алатауының бөктерінде орналасқан.')"><div class="icon">⛰️</div><h3>Алматы</h3><p data-i18n="almatyCard">Тау, мәдениет және қала өмірі тоғысқан мекен.</p></article>
+      <article class="card place" onclick="openModal('Шымкент','Қазақстанның республикалық маңызы бар қалаларының бірі.')"><div class="icon">☀️</div><h3>Шымкент</h3><p data-i18n="shymkentCard">Қазақстанның оңтүстігіндегі ірі қала.</p></article>
+      <article class="card place" onclick="openModal('Түркістан','Тарихи және рухани мұрасымен танымал қала.')"><div class="icon">🕌</div><h3>Түркістан</h3><p data-i18n="turkistanCard">Тарихы терең, мәдени мұрасы мол қала.</p></article>
+      <article class="card place" onclick="openModal('Ақтау','Каспий теңізінің жағалауындағы қала.')"><div class="icon">🌊</div><h3>Ақтау</h3><p data-i18n="aktauCard">Каспий жағалауындағы ерекше қала.</p></article>
+      <article class="card place" onclick="openModal('Қарағанды','Орталық Қазақстандағы ірі қала.')"><div class="icon">🏭</div><h3>Қарағанды</h3><p data-i18n="karagandaCard">Орталық Қазақстанның маңызды қалаларының бірі.</p></article>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-head">
+      <div class="kicker">REGIONS</div>
+      <h2 data-i18n="regionsTitle">Қазақстан облыстары</h2>
+      <p data-i18n="regionsText">Аймақ атауын басып, кейін толық ақпарат қосуға болады.</p>
+    </div>
+    <div class="regions">
+      <span class="region">Абай облысы</span><span class="region">Ақмола облысы</span><span class="region">Ақтөбе облысы</span>
+      <span class="region">Алматы облысы</span><span class="region">Атырау облысы</span><span class="region">Батыс Қазақстан облысы</span>
+      <span class="region">Жамбыл облысы</span><span class="region">Жетісу облысы</span><span class="region">Қарағанды облысы</span>
+      <span class="region">Қостанай облысы</span><span class="region">Қызылорда облысы</span><span class="region">Маңғыстау облысы</span>
+      <span class="region">Павлодар облысы</span><span class="region">Солтүстік Қазақстан облысы</span><span class="region">Түркістан облысы</span>
+      <span class="region">Ұлытау облысы</span><span class="region">Шығыс Қазақстан облысы</span>
+    </div>
+  </div>
+</section>
+
+<section id="nature">
+  <div class="container">
+    <div class="section-head">
+      <div class="kicker">NATURE</div>
+      <h2 data-i18n="natureTitle">Қазақстан табиғаты</h2>
+      <p data-i18n="natureText">Таулар, көлдер, каньондар, дала және Каспий теңізі.</p>
+    </div>
+    <div class="grid">
+      <article class="card place"><div class="icon">🏔️</div><h3>Шарын шатқалы</h3><p data-i18n="charyn">Ерекше жартас бедерімен танымал табиғи орын.</p></article>
+      <article class="card place"><div class="icon">💧</div><h3>Көлсай көлдері</h3><p data-i18n="kolsai">Таулар арасындағы көркем көлдер жүйесі.</p></article>
+      <article class="card place"><div class="icon">🏜️</div><h3>Бозжыра</h3><p data-i18n="bozzhyra">Маңғыстаудағы ерекше табиғи ландшафт.</p></article>
+      <article class="card place"><div class="icon">🌊</div><h3>Каспий теңізі</h3><p data-i18n="caspian">Қазақстанның батысындағы ірі су айдыны.</p></article>
+      <article class="card place"><div class="icon">🌾</div><h3>Ұлы дала</h3><p data-i18n="steppe">Қазақстанның кең байтақ далалық кеңістігі.</p></article>
+      <article class="card place"><div class="icon">🌳</div><h3>Алтын-Емел</h3><p data-i18n="altynemel">Табиғи нысандары мен ерекше ландшафттары бар аймақ.</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="anthem">
+  <div class="container">
+    <div class="section-head">
+      <div class="kicker">NATIONAL ANTHEM</div>
+      <h2 data-i18n="anthemSection">Қазақстан Республикасының Мемлекеттік Гимні</h2>
+      <p data-i18n="anthemIntro">Мемлекеттік Гимннің мәтіні.</p>
+    </div>
+    <div class="card anthem">
+      <div class="anthem-title" data-i18n="anthemTitle">Қазақстан Республикасының Мемлекеттік Гимні</div>
+      <div class="lyrics" data-lang-block="kk">
+Алтын күн аспаны,
+Алтын дән даласы,
+Ерліктің дастаны,
+Еліме қарашы!
+Ежелден ер деген,
+Даңқымыз шықты ғой.
+Намысын бермеген,
+Қазағым мықты ғой!
+
+<span class="chorus">Қайырмасы:
+
+Менің елім, менің елім,
+Гүлің болып егілемін,
+Жырың болып төгілемін, елім!
+Туған жерім менің – Қазақстаным!</span>
+
+Ұрпаққа жол ашқан,
+Кең байтақ жерім бар.
+Бірлігі жарасқан,
+Тәуелсіз елім бар.
+Қарсы алған уақытты,
+Мәңгілік досындай,
+Біздің ел бақытты,
+Біздің ел осындай!
+
+<span class="chorus">Қайырмасы:
+
+Менің елім, менің елім,
+Гүлің болып егілемін,
+Жырың болып төгілемін, елім!
+Туған жерім менің – Қазақстаным!</span>
+      </div>
+      <div class="lyrics-controls" data-i18n="anthemNote">Мәтін пайдаланушы ұсынған нұсқа бойынша енгізілді.</div>
+      <div class="anthem-player">
+        <div class="player-label">🎵 <span data-i18n="playerLabel">Мемлекеттік Гимнді тыңдау</span></div>
+        <audio controls preload="metadata">
+          <source src="anthem.mp3" type="audio/mpeg">
+          Your browser does not support audio playback.
+        </audio>
+      </div>
+    </div>
+  </div>
+</section>
+
+<button class="faq-btn" onclick="toggleFAQ()" aria-label="FAQ">💬</button>
+<div class="faq-panel" id="faq">
+  <h3 data-i18n="faqTitle">Жиі қойылатын сұрақтар</h3>
+  <div class="faq-item"><div class="faq-q" data-i18n="q1">Қазақстанның астанасы қай қала?</div><div class="faq-a" data-i18n="a1">Қазақстан Республикасының астанасы — Астана.</div></div>
+  <div class="faq-item"><div class="faq-q" data-i18n="q2">Қазақстанның мемлекеттік рәміздері қандай?</div><div class="faq-a" data-i18n="a2">Мемлекеттік Ту, Мемлекеттік Елтаңба және Мемлекеттік Гимн.</div></div>
+  <div class="faq-item"><div class="faq-q" data-i18n="q3">Картада не істеуге болады?</div><div class="faq-a" data-i18n="a3">Қала нүктесін басып, сол қала туралы қысқаша ақпаратты ашуға болады.</div></div>
+  <div class="faq-item"><div class="faq-q" data-i18n="q4">Сайтта қанша тіл бар?</div><div class="faq-a" data-i18n="a4">Қазақша, орысша және ағылшынша үш тіл бар.</div></div>
+</div>
+
+<div class="modal" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="card modal-box">
+    <button class="close" onclick="closeModal()">×</button>
+    <h3 id="modalTitle"></h3>
+    <p id="modalText"></p>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <strong>🇰🇿 QAZAQSTAN WORLD</strong>
+    <p style="margin-top:10px" data-i18n="footerText">Қазақстанды таны. Қазақстанды зертте.</p>
+    <p style="margin-top:18px">© 2026</p>
+  </div>
+</footer>
+
+<script>
+const T={
+kk:{
+navSymbols:"Рәміздер",navMap:"Карта",navCities:"Қалалар",navNature:"Табиғат",navAnthem:"Гимн",
+eyebrow:"ҰЛЫ ДАЛА ЕЛІ",heroTitle:"ҚАЗАҚСТАН",
+heroText:"Қазақстанның қалаларын, аймақтарын, табиғатын, тарихи орындарын және мемлекеттік рәміздерін интерактивті түрде зертте.",
+explore:"🗺️ Картаны зерттеу",symbolsBtn:"🇰🇿 Рәміздерді көру",
+symbolsKicker:"NATIONAL SYMBOLS",symbolsTitle:"Мемлекеттік рәміздер",
+symbolsText:"Қазақстан Республикасының мемлекеттік Туы мен Елтаңбасын көріп, олардың мағынасымен таныс.",
+flagTitle:"Мемлекеттік Ту",flagText:"Көгілдір ту — бейбітшілік, ашық аспан және ел бірлігін бейнелейтін Қазақстанның мемлекеттік рәмізі.",
+emblemTitle:"Мемлекеттік Елтаңба",emblemText:"Елтаңбада шаңырақ, қанатты тұлпарлар, жұлдыз және басқа да ұлттық нышандар бейнеленген.",
+mapTitle:"Қазақстан картасы",mapText:"Картадағы қала нүктесін басып, қысқаша ақпаратты аш.",mapNote:"Интерактивті визуал карта • Қаланы басып көр",
+citiesTitle:"Қазақстан қалалары",citiesText:"Әр қала — Қазақстан тарихы мен мәдениетінің ерекше бөлігі.",
+astanaCard:"Елорда және заманауи Қазақстанның маңызды орталығы.",almatyCard:"Тау, мәдениет және қала өмірі тоғысқан мекен.",
+shymkentCard:"Қазақстанның оңтүстігіндегі ірі қала.",turkistanCard:"Тарихы терең, мәдени мұрасы мол қала.",
+aktauCard:"Каспий жағалауындағы ерекше қала.",karagandaCard:"Орталық Қазақстанның маңызды қалаларының бірі.",
+regionsTitle:"Қазақстан облыстары",regionsText:"Аймақ атауын басып, кейін толық ақпарат қосуға болады.",
+natureTitle:"Қазақстан табиғаты",natureText:"Таулар, көлдер, каньондар, дала және Каспий теңізі.",
+charyn:"Ерекше жартас бедерімен танымал табиғи орын.",kolsai:"Таулар арасындағы көркем көлдер жүйесі.",
+bozzhyra:"Маңғыстаудағы ерекше табиғи ландшафт.",caspian:"Қазақстанның батысындағы ірі су айдыны.",
+steppe:"Қазақстанның кең байтақ далалық кеңістігі.",altynemel:"Табиғи нысандары мен ерекше ландшафттары бар аймақ.",
+anthemSection:"Қазақстан Республикасының Мемлекеттік Гимні",anthemIntro:"Мемлекеттік Гимннің мәтіні.",
+anthemTitle:"Қазақстан Республикасының Мемлекеттік Гимні",anthemNote:"Мәтін пайдаланушы ұсынған нұсқа бойынша енгізілді.",playerLabel:"Мемлекеттік Гимнді тыңдау",playerLabel:"Мемлекеттік Гимнді тыңдау",
+faqTitle:"Жиі қойылатын сұрақтар",q1:"Қазақстанның астанасы қай қала?",a1:"Қазақстан Республикасының астанасы — Астана.",
+q2:"Қазақстанның мемлекеттік рәміздері қандай?",a2:"Мемлекеттік Ту, Мемлекеттік Елтаңба және Мемлекеттік Гимн.",
+q3:"Картада не істеуге болады?",a3:"Қала нүктесін басып, сол қала туралы қысқаша ақпаратты ашуға болады.",
+q4:"Сайтта қанша тіл бар?",a4:"Қазақша, орысша және ағылшынша үш тіл бар.",footerText:"Қазақстанды таны. Қазақстанды зертте."
+},
+ru:{
+navSymbols:"Символы",navMap:"Карта",navCities:"Города",navNature:"Природа",navAnthem:"Гимн",
+eyebrow:"СТРАНА ВЕЛИКОЙ СТЕПИ",heroTitle:"КАЗАХСТАН",
+heroText:"Исследуйте города, регионы, природу, исторические места и государственные символы Казахстана в интерактивном формате.",
+explore:"🗺️ Исследовать карту",symbolsBtn:"🇰🇿 Смотреть символы",
+symbolsKicker:"ГОСУДАРСТВЕННЫЕ СИМВОЛЫ",symbolsTitle:"Государственные символы",
+symbolsText:"Познакомьтесь с Государственным Флагом и Государственным Гербом Республики Казахстан.",
+flagTitle:"Государственный Флаг",flagText:"Голубой флаг является государственным символом Казахстана и связан с миром, открытым небом и единством страны.",
+emblemTitle:"Государственный Герб",emblemText:"На гербе изображены шанырак, крылатые кони, звезда и другие национальные элементы.",
+mapTitle:"Карта Казахстана",mapText:"Нажмите на точку города, чтобы открыть краткую информацию.",mapNote:"Интерактивная визуальная карта • Нажмите на город",
+citiesTitle:"Города Казахстана",citiesText:"Каждый город — особая часть истории и культуры Казахстана.",
+astanaCard:"Столица и важный современный центр Казахстана.",almatyCard:"Город, где сочетаются горы, культура и современная жизнь.",
+shymkentCard:"Крупный город на юге Казахстана.",turkistanCard:"Город с богатой историей и культурным наследием.",
+aktauCard:"Особенный город на побережье Каспийского моря.",karagandaCard:"Один из важных городов Центрального Казахстана.",
+regionsTitle:"Области Казахстана",regionsText:"Позже к каждому региону можно добавить подробную информацию.",
+natureTitle:"Природа Казахстана",natureText:"Горы, озёра, каньоны, степи и Каспийское море.",
+charyn:"Природное место, известное необычным рельефом скал.",kolsai:"Живописная система озёр среди гор.",
+bozzhyra:"Уникальный природный ландшафт Мангистау.",caspian:"Крупный водоём на западе Казахстана.",
+steppe:"Просторные степные территории Казахстана.",altynemel:"Регион с природными объектами и необычными ландшафтами.",
+anthemSection:"Государственный Гимн Республики Казахстан",anthemIntro:"Текст Государственного Гимна.",
+anthemTitle:"Государственный Гимн Республики Казахстан",anthemNote:"Текст добавлен по версии, предоставленной пользователем.",playerLabel:"Слушать Государственный Гимн",
+faqTitle:"Часто задаваемые вопросы",q1:"Какой город является столицей Казахстана?",a1:"Столица Республики Казахстан — Астана.",
+q2:"Какие государственные символы есть у Казахстана?",a2:"Государственный Флаг, Государственный Герб и Государственный Гимн.",
+q3:"Что можно делать на карте?",a3:"Нажимать на точки городов и открывать краткую информацию о них.",
+q4:"Сколько языков есть на сайте?",a4:"На сайте доступны казахский, русский и английский языки.",footerText:"Узнай Казахстан. Исследуй Казахстан."
+},
+en:{
+navSymbols:"Symbols",navMap:"Map",navCities:"Cities",navNature:"Nature",navAnthem:"Anthem",
+eyebrow:"LAND OF THE GREAT STEPPE",heroTitle:"KAZAKHSTAN",
+heroText:"Explore the cities, regions, nature, historical places and national symbols of Kazakhstan in an interactive format.",
+explore:"🗺️ Explore the map",symbolsBtn:"🇰🇿 View symbols",
+symbolsKicker:"NATIONAL SYMBOLS",symbolsTitle:"National Symbols",
+symbolsText:"Discover the State Flag and State Emblem of the Republic of Kazakhstan.",
+flagTitle:"State Flag",flagText:"The blue flag is a national symbol of Kazakhstan, associated with peace, open skies and unity.",
+emblemTitle:"State Emblem",emblemText:"The emblem features the shanyrak, winged horses, a star and other national elements.",
+mapTitle:"Map of Kazakhstan",mapText:"Click a city marker to open a short description.",mapNote:"Interactive visual map • Click a city",
+citiesTitle:"Cities of Kazakhstan",citiesText:"Every city is a unique part of Kazakhstan's history and culture.",
+astanaCard:"The capital and an important modern center of Kazakhstan.",almatyCard:"A city where mountains, culture and urban life meet.",
+shymkentCard:"A major city in southern Kazakhstan.",turkistanCard:"A city with deep history and rich cultural heritage.",
+aktauCard:"A distinctive city on the Caspian Sea coast.",karagandaCard:"One of the important cities of Central Kazakhstan.",
+regionsTitle:"Regions of Kazakhstan",regionsText:"Detailed information can be added to each region later.",
+natureTitle:"Nature of Kazakhstan",natureText:"Mountains, lakes, canyons, steppe and the Caspian Sea.",
+charyn:"A natural site known for its unusual rock formations.",kolsai:"A scenic system of lakes surrounded by mountains.",
+bozzhyra:"A unique natural landscape in Mangystau.",caspian:"A major body of water in western Kazakhstan.",
+steppe:"Vast steppe landscapes across Kazakhstan.",altynemel:"A region with natural attractions and distinctive landscapes.",
+anthemSection:"State Anthem of the Republic of Kazakhstan",anthemIntro:"State Anthem text.",
+anthemTitle:"State Anthem of the Republic of Kazakhstan",anthemNote:"The Kazakh anthem text is displayed in the version provided by the user.",playerLabel:"Listen to the State Anthem",
+faqTitle:"Frequently Asked Questions",q1:"What is the capital of Kazakhstan?",a1:"The capital of the Republic of Kazakhstan is Astana.",
+q2:"What are Kazakhstan's national symbols?",a2:"The State Flag, State Emblem and State Anthem.",
+q3:"What can I do on the map?",a3:"Click city markers to open short information about the selected city.",
+q4:"How many languages are available?",a4:"The website supports Kazakh, Russian and English.",footerText:"Discover Kazakhstan. Explore Kazakhstan."
+}};
+
+let currentLang="kk";
+document.querySelectorAll("[data-lang]").forEach(b=>b.addEventListener("click",()=>{
+ currentLang=b.dataset.lang;
+ document.querySelectorAll("[data-lang]").forEach(x=>x.classList.toggle("active",x===b));
+ document.querySelectorAll("[data-i18n]").forEach(el=>{
+   const key=el.dataset.i18n;
+   if(T[currentLang][key]!==undefined) el.textContent=T[currentLang][key];
+ });
+ document.documentElement.lang=currentLang;
+}));
+
+function cityInfo(name,text){
+ const box=document.getElementById("cityInfo");
+ box.innerHTML=`<h3>📍 ${name}</h3><p>${text}</p>`;
+ box.classList.add("show");
+ box.scrollIntoView({behavior:"smooth",block:"center"});
+}
+function openModal(title,text){
+ document.getElementById("modalTitle").textContent=title;
+ document.getElementById("modalText").textContent=text;
+ document.getElementById("modal").classList.add("show");
+}
+function closeModal(){document.getElementById("modal").classList.remove("show")}
+function toggleFAQ(){document.getElementById("faq").classList.toggle("show")}
+document.querySelectorAll(".faq-q").forEach(q=>q.addEventListener("click",()=>q.parentElement.classList.toggle("open")));
+</script>
+</body>
+</html>
